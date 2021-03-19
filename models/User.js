@@ -8,7 +8,8 @@ const UserSchema = new Schema({
     email: { type: String, required: true },
     name: { type: String, required: true },
     surname: { type: String, required: true },
-    phone:{ type: String, required: true }
+    phone:{ type: String, required: true },
+    create_at: {type: Date, required: Date.now }
 });
 
 module.exports = model('User', UserSchema);
