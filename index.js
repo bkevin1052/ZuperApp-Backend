@@ -24,6 +24,11 @@ app.use(multer({storage}).single('image'));
 app.use(express.urlencoded({extended:false}));
 
 app.use(express.json());
+
+//Rutas
+
+app.use(require('./route/login'));
+
 // Start Server
 app.listen(app.get('port'),()=>{
 
