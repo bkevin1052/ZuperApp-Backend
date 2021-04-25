@@ -1,12 +1,12 @@
-if (process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-} 
-
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
+
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config({path: path.resolve(__dirname+'/.env')});
+}
 
 // Initializations
 const app = express();
@@ -29,7 +29,9 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // routes
-app.use('/login', require('./routes/login'));
+app.use('/api/login', require('./routes/login'));
+app.use('/api/lists', require('./routes/lists'));
+app.use('/api/services', require('./routes/services'));
 
 // static files
 app.use(express.static(path.join(__dirname, 'public')));
