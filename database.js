@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/ZuperAppDB', {
+mongoose.connect('mongodb+srv://kevin:Magicjack123@cluster0.ltzut.mongodb.net/myFirstDatabase?retryWrites=true&w=majority', {
     useNewUrlParser: true
 }) 
     .then(db => console.log(`DB is connected`))
