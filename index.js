@@ -29,8 +29,13 @@ app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
 // routes
-app.use('/api/login', require('./routes/login'));
+//Usuario
+app.use('/api', require('./routes/login'));
+
+//Lista
 app.use('/api/lists', require('./routes/lists'));
+
+//Servicios
 app.use('/api/services', require('./routes/services'));
 
 // static files
