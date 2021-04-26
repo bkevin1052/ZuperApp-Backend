@@ -30,7 +30,7 @@ app.use(express.json());
 
 // routes
 //Usuario
-app.use('api', require('./routes/login'));
+app.use('/api', require('./routes/login'));
 
 //Lista
 app.use('/api/lists', require('./routes/lists'));

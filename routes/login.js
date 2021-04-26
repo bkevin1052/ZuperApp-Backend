@@ -18,6 +18,7 @@ router.post('/login', async (req, res) => {
 
     if(username && password){
         const user = await User.findOne({username:req.body.username});
+        if(user){
         if(user.password == password){
             const payload = {
                 check:  true
@@ -37,8 +38,12 @@ router.post('/login', async (req, res) => {
         }
         res.end();
     }else{
+        res.json({token: '', username: username,mensaje: "Usuario no registrado",codigo: ''});
+        res.end();
+    }
+    }else{
 
-        res.json({token: '', username: user.username,mensaje: "Usuario no registrado",codigo: ''});
+        res.json({token: '', username: username,mensaje: "Usuario no registrado",codigo: ''});
         res.end();
     }
 
@@ -55,7 +60,7 @@ router.post('/register', async (req, res) => {
     const newUser = new User({ username, password, email,name,surname,phone});
     console.log(newUser)
     await newUser.save();
-    res.json({token: '', username: user.username,mensaje: "Usuario registrado correctamente!",codigo: '100'});
+    res.json({token: '', username: newUser.username,mensaje: "Usuario registrado correctamente!",codigo: '100'});
     res.end();
 });
 
