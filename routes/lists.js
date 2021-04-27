@@ -5,6 +5,7 @@ const path = require('path');
 const { unlink } = require('fs-extra');
 
 const List = require('../models/List');
+const Item = require('../models/Item');
 
 router.post('/createlist', async (req, res) => {
 
@@ -31,6 +32,37 @@ router.post('/getlists', async (req, res) => {
     res.json(lists);
     res.end();
 });
+
+router.post('/getitems', async (req, res) => {
+
+    var x = req.body._id;
+    List.findById(x, function (err, items) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            console.log(items)
+            res.json(items);
+            res.end();
+        }
+    });
+});
+
+router.post('/deletelist', async (req, res) => {
+
+    var x = req.body._id;
+    List.deleteOne({_id:x},function (err) {
+        if (err){
+            console.log(err);
+        }
+        else{
+            res.json({token: '', username:'',mensaje: "Lista eliminada correctamente!",codigo: '100'});
+            res.end();
+        }
+    });
+});
+
+
 
 
 module.exports = router;
