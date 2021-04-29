@@ -125,7 +125,7 @@ router.post('/updatePassword', async (req, res) => {
         res.json({token: '', username: user.username,mensaje: "Por favor revisar su correo electrónico, si no sale en principal también revisar Spam.",codigo: '201'});
 
     }else{
-        res.json({token: '', username: user.username,mensaje: "No se encuentra el correo ingresado, ingresar nuevamente.",codigo: ''});
+        res.json({token: '', username:correo,mensaje: "No se encuentra el correo ingresado, ingresar nuevamente.",codigo: ''});
     }
     res.end();
 
