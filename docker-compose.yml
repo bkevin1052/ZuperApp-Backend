@@ -1,0 +1,26 @@
+
+# Compose file version
+version: "3.9"
+
+# services
+services:
+
+# frontend service (public image)
+  client-angular:
+    container_name: zuperapp
+    image: zuperapp
+    ports:
+      - "80:80"
+    depends_on: 
+      - node-api
+# backend service (public image)
+  node-api:
+    container_name: zuper-app-backend
+    image: zuper-app-backend
+    ports:
+      - "2021:2021"
+  redis:
+    container_name: redis
+    image: redis:latest
+    ports:
+      - "6379:6379"
