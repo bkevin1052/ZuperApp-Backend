@@ -4,7 +4,7 @@ const ListSchema = new Schema({
     username: { type: String, required: true },
     namelist: { type: String, required: true },
     description: { type: String},
-    items: { type: Array,  default:[]},
+    products: { type: Array,  default:[]},
     create_at: {type: Date, default: Date.now }
 });
 

@@ -10,7 +10,7 @@ services:
     container_name: zuperapp
     image: zuperapp
     ports:
-      - "8080:8080"
+      - "8080:80"
     depends_on: 
       - node-api
 # backend service (public image)

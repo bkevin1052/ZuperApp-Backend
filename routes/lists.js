@@ -5,7 +5,7 @@ const path = require('path');
 const { unlink } = require('fs-extra');
 
 const List = require('../models/List');
-const Item = require('../models/Item');
+const Product = require('../models/Product');
 
 router.post('/createlist', async (req, res) => {
 
@@ -63,6 +63,36 @@ router.post('/deletelist', async (req, res) => {
 });
 
 
+router.get('/getproducts', async (req, res) => {
+
+    const products = await Product.find().sort('-_id');
+    res.json(products);
+});
+
+
+router.post('/additems', async (req, res) => {
+
+    var name = req.body.name;
+    var description = req.body.description;
+    var price = req.body.price;
+    var x = req.body.id;
+    const list = await List.findOne({_id:x});
+    const newProduct = new Product({ name, description, price});
+    list.products.push(newProduct)
+    console.log(list)
+    let doc = await List.findOneAndUpdate({_id:x}, {products:list.products});
+    res.json({token: '', username: '',mensaje: "Producto agregado correctamente.",codigo: '100'});
+    res.end()
+});
+
+
+router.post('/sendlist', async (req, res) => {
+
+    console.log(req.body.email)
+    console.log(req.body.id)
+    res.json({token: '', username: '',mensaje: "Lista enviada correctamente.",codigo: '100'});
+    res.end()
+});
 
 
 module.exports = router;
