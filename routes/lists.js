@@ -6,6 +6,7 @@ const { unlink } = require('fs-extra');
 
 const List = require('../models/List');
 const Product = require('../models/Product');
+const ConfigCorreoLista = require('../correo/ConfigCorreoLista');
 
 router.post('/createlist', async (req, res) => {
 
@@ -88,11 +89,30 @@ router.post('/additems', async (req, res) => {
 
 router.post('/sendlist', async (req, res) => {
 
-    console.log(req.body.email)
-    console.log(req.body.id)
-    res.json({token: '', username: '',mensaje: "Lista enviada correctamente.",codigo: '100'});
+    var email = req.body.email;
+    var x = req.body.id;
+    const list = await List.findOne({_id:x});
+
+    let body  = ''
+
+    for(i in list.products){
+
+            body += 'name:' + list.products[i].name + '\ndescription:' + list.products[i].description + '\nprice:' + list.products[i].price;
+    }
+
+    if(list){
+
+        ConfigCorreoLista(email,body);
+        res.json({token: '', username: '',mensaje: "Lista enviada correctamente.",codigo: '100'});
+
+    }else{
+
+        res.json({token: '', username: '',mensaje: "Erro al enviar lista.",codigo: '201'});
+    }
     res.end()
 });
+
+
 
 
 module.exports = router;
