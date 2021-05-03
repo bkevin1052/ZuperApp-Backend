@@ -4,6 +4,11 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 
+//Redis - Cache
+const responseTime = require('response-time')
+const axios = require('axios');
+const redis = require('redis');
+
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({path: path.resolve(__dirname+'/.env')});
 }
@@ -18,6 +23,7 @@ app.set('port', process.env.PORT || 2021);
 // middlewares
 app.use(morgan('dev'));
 app.use(cors());
+app.use(responseTime());
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/uploads'),
     filename(req, file, cb) {
@@ -28,8 +34,7 @@ app.use(multer({storage}).single('image'));
 app.use(express.urlencoded({extended: false}));
 app.use(express.json());
 
-// routes
-
+// ROUTES
 app.get('/', (req,res) => res.send('ZuperApp - BackEnd'));
 
 //Usuario
