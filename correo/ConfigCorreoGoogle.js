@@ -23,7 +23,7 @@ const mailOptions = {
     html:
     
     '<p><img class="center" style="display: block; margin-left: auto; margin-right: auto;" src="https://raw.githubusercontent.com/bkevin1052/ZuperApp/master/ZuperApp/icons/ZuperApp.png" alt="" width="150" height="150" /></p>'+
-    '<h1 style="color: #5e9ca0; text-align: center;">Tu registro de Inicio de Sesi&oacute;n</h1>'+
+    '<h1 style="color: #5e9ca0; text-align: center;">Tu registro de Inicio de Sesi&oacute;n con Google</h1>'+
     '<h2 style="color: #2e6c80; text-align: center;">Dirigite al login e ingresa tus nuevos datos:</h2>'+
     '<p>&nbsp;</p>'+
     '<ol style="list-style: none; font-size: 14px; line-height: 32px; font-weight: bold;">'+
