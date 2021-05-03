@@ -21,6 +21,6 @@ services:
       - "2021:2021"
   redis:
     container_name: redis
-    image: redis:latest
+    image: redis
     ports:
       - "6379:6379"
