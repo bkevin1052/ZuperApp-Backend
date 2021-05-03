@@ -11,7 +11,7 @@ const { unlink } = require('fs-extra');
 const User = require('../models/User');
 const caracteres = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
 
-router.post('/login', async (req, res) => {
+login = router.post('/login', async (req, res) => {
 
     var username = req.body.username;
     var password = req.body.password;
@@ -50,7 +50,7 @@ router.post('/login', async (req, res) => {
 
 });
 
-router.post('/register', async (req, res) => {
+register = router.post('/register', async (req, res) => {
 
     var username = req.body.username;
     var email = req.body.email;
@@ -65,7 +65,7 @@ router.post('/register', async (req, res) => {
     res.end();
 });
 
-router.post('/loginGoogle', async (req, res) => {
+loginGoogle = router.post('/loginGoogle', async (req, res) => {
 
     var username = req.body.email;
     var email = req.body.email;
@@ -100,7 +100,7 @@ router.post('/loginGoogle', async (req, res) => {
 });
 
 
-router.post('/updatePassword', async (req, res) => {
+updatePassword = router.post('/updatePassword', async (req, res) => {
     var correo = req.body.email;
 
     var charsLength = caracteres.length;
@@ -132,7 +132,7 @@ router.post('/updatePassword', async (req, res) => {
 });
 
 
-router.post('/getperfil', async (req, res) => {
+getperfil = router.post('/getperfil', async (req, res) => {
 
     const user = await User.findOne({username:req.body.username});
 
@@ -146,7 +146,7 @@ router.post('/getperfil', async (req, res) => {
 
 });
 
-router.post('/editperfil', async (req, res) => {
+editperfil = router.post('/editperfil', async (req, res) => {
 
     const user = await User.findOne({username:req.body.username});
 
@@ -168,7 +168,7 @@ router.post('/editperfil', async (req, res) => {
 });
 
 
-router.post('/updateProfilePassword', async (req, res) => {
+updateProfilePassword = router.post('/updateProfilePassword', async (req, res) => {
     var newPass = crypto.createHash('md5').update(req.body.inputNewPassword).digest("hex");
 
     const user = await User.findOne({username:req.body.username});

@@ -8,7 +8,7 @@ const List = require('../models/List');
 const Product = require('../models/Product');
 const ConfigCorreoLista = require('../correo/ConfigCorreoLista');
 
-router.post('/createlist', async (req, res) => {
+createlist = router.post('/createlist', async (req, res) => {
 
     var username = req.body.username;
     var namelist = req.body.name;
@@ -20,21 +20,21 @@ router.post('/createlist', async (req, res) => {
     res.end();
 });
 
-router.post('/editlist', async (req, res) => {
+editlist = router.post('/editlist', async (req, res) => {
 
     let doc = await List.findOneAndUpdate({username:req.body.username,namelist:req.body.name }, {namelist:req.body.name, description:req.body.description,items:req.body.items});
     res.json({token: '', username: req.body.username,mensaje: "Lista actualizada correctamente!",codigo: '100'});
     res.end();
 });
 
-router.post('/getlists', async (req, res) => {
+getlists = router.post('/getlists', async (req, res) => {
 
     const lists = await List.find({username:req.body.username});
     res.json(lists);
     res.end();
 });
 
-router.post('/getitems', async (req, res) => {
+getitems = router.post('/getitems', async (req, res) => {
 
     var x = req.body._id;
     List.findById(x, function (err, items) {
@@ -49,7 +49,7 @@ router.post('/getitems', async (req, res) => {
     });
 });
 
-router.post('/deletelist', async (req, res) => {
+deletelist = router.post('/deletelist', async (req, res) => {
 
     var x = req.body._id;
     List.deleteOne({_id:x},function (err) {
@@ -64,14 +64,14 @@ router.post('/deletelist', async (req, res) => {
 });
 
 
-router.get('/getproducts', async (req, res) => {
+getproducts = router.get('/getproducts', async (req, res) => {
 
     const products = await Product.find().sort('-_id');
     res.json(products);
 });
 
 
-router.post('/additems', async (req, res) => {
+additems = router.post('/additems', async (req, res) => {
 
     var name = req.body.name;
     var description = req.body.description;
@@ -87,7 +87,7 @@ router.post('/additems', async (req, res) => {
 });
 
 
-router.post('/sendlist', async (req, res) => {
+sendlist = router.post('/sendlist', async (req, res) => {
 
     var email = req.body.email;
     var x = req.body.id;
