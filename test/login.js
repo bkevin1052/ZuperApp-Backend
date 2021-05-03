@@ -3,7 +3,6 @@ let chaiHttp = require('chai-http');
 const expect = require('chai').expect;
 chai.use(chaiHttp);
 const url = 'http://localhost:2021';
-// const url = 'http://18.207.236.58:3000';
 
 describe('Login :', ()=>{
     it('should be correct', (done) => {
