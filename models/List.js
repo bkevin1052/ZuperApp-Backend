@@ -1,11 +1,11 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const ListSchema = new Schema({
-    username: { type: String, required: true },
-    namelist: { type: String, required: true },
-    description: { type: String},
-    products: { type: Array,  default:[]},
-    create_at: {type: Date, default: Date.now }
+  username: { type: String, required: true },
+  namelist: { type: String, required: true },
+  description: { type: String },
+  products: { type: Array, default: [] },
+  create_at: { type: Date, default: Date.now },
 });
 
-module.exports = model('List', ListSchema);
+module.exports = model("List", ListSchema);

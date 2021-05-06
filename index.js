@@ -4,11 +4,6 @@ const cors = require('cors');
 const multer = require('multer');
 const path = require('path');
 
-//Redis - Cache
-const responseTime = require('response-time')
-const axios = require('axios');
-const redis = require('redis');
-
 if (process.env.NODE_ENV !== 'production') {
     require('dotenv').config({path: path.resolve(__dirname+'/.env')});
 }
