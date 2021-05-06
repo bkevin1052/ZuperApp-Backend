@@ -18,7 +18,6 @@ app.set('port', process.env.PORT || 2021);
 // middlewares
 app.use(morgan('dev'));
 app.use(cors());
-app.use(responseTime());
 const storage = multer.diskStorage({
     destination: path.join(__dirname, 'public/uploads'),
     filename(req, file, cb) {

@@ -4,14 +4,6 @@ const router = Router();
 const path = require("path");
 const { unlink } = require("fs-extra");
 
-//Redis - Cache
-/**************************************************/
-const responseTime = require("response-time");
-const redis = require("redis");
-const axios = require("axios");
-const client = redis.createClient();
-/**************************************************/
-
 const List = require("../models/List");
 const Product = require("../models/Product");
 const ConfigCorreoLista = require("../correo/ConfigCorreoLista");

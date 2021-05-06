@@ -12,14 +12,6 @@ const User = require("../models/User");
 const caracteres =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
-//Redis - Cache
-/**************************************************/
-const responseTime = require("response-time");
-const redis = require("redis");
-const axios = require("axios");
-const client = redis.createClient();
-/**************************************************/
-
 login = router.post("/login", async (req, res) => {
   try {
     var username = req.body.username;
