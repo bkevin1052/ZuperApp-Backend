@@ -12,6 +12,9 @@ const User = require("../models/User");
 const caracteres =
   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+const NodeCache = require("node-cache");
+const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
+
 login = router.post("/login", async (req, res) => {
   try {
     var username = req.body.username;
@@ -180,19 +183,31 @@ updatePassword = router.post("/updatePassword", async (req, res) => {
 });
 
 getperfil = router.post("/getperfil", async (req, res) => {
-  const user = await User.findOne({ username: req.body.username });
+  
+  var success = myCache.get("perfil");
 
-  if (user) {
-    res.json({
-      username: user.username,
-      name: user.name,
-      surname: user.surname,
-      phone: user.phone,
-      email: user.email,
-    });
+  if (success == undefined) {
+    const user = await User.findOne({ username: req.body.username });
+
+    if (user) {
+
+      res.json({
+        username: user.username,
+        name: user.name,
+        surname: user.surname,
+        phone: user.phone,
+        email: user.email,
+      });
+      success = myCache.set("perfil", user, 10000);
+      res.end();
+    }
+
+  } else {
+
+    res.json(success);
+    res.end();
+
   }
-
-  res.end();
 });
 
 editperfil = router.post("/editperfil", async (req, res) => {
