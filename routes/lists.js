@@ -7,6 +7,8 @@ const { unlink } = require("fs-extra");
 const List = require("../models/List");
 const Product = require("../models/Product");
 const ConfigCorreoLista = require("../correo/ConfigCorreoLista");
+const NodeCache = require("node-cache");
+const myCache = new NodeCache({ stdTTL: 100, checkperiod: 120 });
 
 createlist = router.post("/createlist", async (req, res) => {
   var username = req.body.username;
@@ -43,22 +45,36 @@ editlist = router.post("/editlist", async (req, res) => {
 });
 
 getlists = router.post("/getlists", async (req, res) => {
-  const lists = await List.find({ username: req.body.username });
-  res.json(lists);
-  res.end();
+  var success = myCache.get("Listas");
+  if (success == undefined) {
+    const lists = await List.find({ username: req.body.username });
+    success = myCache.set("Listas", lists, 10000);
+    res.json(lists);
+    res.end();
+  } else {
+    res.json(success);
+    res.end();
+  }
 });
 
 getitems = router.post("/getitems", async (req, res) => {
   var x = req.body._id;
-  List.findById(x, function (err, items) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(items);
-      res.json(items);
-      res.end();
-    }
-  });
+  var success = myCache.get("Items");
+  if (success == undefined) {
+    List.findById(x, function (err, items) {
+      if (err) {
+        console.log(err);
+      } else {
+        console.log(items);
+        success = myCache.set("Items", items, 10000);
+        res.json(items);
+        res.end();
+      }
+    });
+  } else {
+    res.json(success);
+    res.end();
+  }
 });
 
 deletelist = router.post("/deletelist", async (req, res) => {
@@ -79,8 +95,16 @@ deletelist = router.post("/deletelist", async (req, res) => {
 });
 
 getproducts = router.get("/getproducts", async (req, res) => {
-  const products = await Product.find().sort("-_id");
-  res.json(products);
+  var success = myCache.get("products");
+  if (success == undefined) {
+    const products = await Product.find().sort("-_id");
+    success = myCache.set("Items", products, 10000);
+    res.json(products);
+    res.end();
+  } else {
+    res.json(success);
+    res.end();
+  }
 });
 
 additems = router.post("/additems", async (req, res) => {
